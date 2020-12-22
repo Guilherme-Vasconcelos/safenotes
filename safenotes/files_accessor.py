@@ -9,6 +9,14 @@ def ensure_safenotes_dir_exists() -> None:
     SAFENOTES_DIR_PATH.mkdir(parents=True, exist_ok=True)
 
 
+def ensure_safenotes_data_file_exists() -> None:
+    """
+    Creates safenotes data file (for storing data about
+    each note) if it does not exist
+    """
+    open(str(SAFENOTES_DIR_PATH) + '/data', 'a')
+
+
 def password_file_exists() -> bool:
     """ Whether the file containing password hash exists or not """
     try:

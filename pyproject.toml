@@ -6,9 +6,10 @@ authors = ["Guilherme-Vasconcelos"]
 license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "~3.8"
 flake8 = "^3.8.4"
 colorama = "^0.4.4"
+questionary = "^1.9.0"
 
 [tool.poetry.dev-dependencies]
 
