@@ -49,7 +49,8 @@ class Displayer:
     def handle_choice(self, choice: str) -> None:
         available_choices = {
             'New note': self.create_new_note,
-            'Quit': exit
+            'Quit': exit,
+            'Manually refresh encryptions': self.not_yet_implemented_error
         }
 
         if choice in available_choices:
@@ -58,6 +59,9 @@ class Displayer:
             if ' ' in choice:
                 choice = choice.replace(' ', '\\ ')
             self.edit_note(str(SAFENOTES_DIR_PATH / choice))
+
+    def not_yet_implemented_error(self) -> None:
+        raise NotImplementedError('Sorry, this functionality is not available yet!')
 
     @staticmethod
     def get_saved_notes_filenames() -> List[str]:
