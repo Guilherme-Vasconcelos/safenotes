@@ -5,7 +5,7 @@ If you have not yet installed it, please refer to docs/INSTALLATION.md.
 
 ---
 
-## Table of contents
+### Table of contents
 
 - [Safenotes for the first time](#safenotes-for-the-first-time)
 
