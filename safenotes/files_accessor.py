@@ -1,3 +1,4 @@
+import os
 from hmac import compare_digest as compare_hash
 from paths import SAFENOTES_DIR_PATH, PASSWORD_FILE_PATH
 from crypt import crypt
@@ -34,6 +35,13 @@ def define_user_password() -> None:
     with open(PASSWORD_FILE_PATH, 'w') as f:
         f.write(hashed_passwd)
     print(green('Password set successfully.'))
+
+
+def save_encrypted_file(file_path: str, password: str) -> None:
+    """
+    Saves an encrypted version of the file and deletes the original one
+    """
+    os.system(f'gpg --passphrase {password} -c --batch {file_path}')  # TODO: && shred -u file_path
 
 
 def load_user_password() -> str:

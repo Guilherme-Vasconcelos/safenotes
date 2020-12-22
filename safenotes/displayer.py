@@ -3,6 +3,7 @@ from os.path import isfile, join
 from paths import SAFENOTES_DIR_PATH
 from typing import List
 from sys import exit
+from files_accessor import save_encrypted_file
 import os
 import questionary
 
@@ -19,7 +20,7 @@ class Displayer:
     def display(self) -> None:
         system('clear')
 
-        special_choices = ['New note', 'Quit']
+        special_choices = ['New note', 'Quit', 'Manually refresh encryptions']
         choice = questionary.select(
             'Available notes',
             choices=special_choices + self.get_saved_notes_filenames(),
@@ -30,7 +31,10 @@ class Displayer:
 
     def create_new_note(self) -> None:
         file_name = input('Please decide on a name for the file (this name WILL be publicly visible): ')
-        system(f'{os.getenv("EDITOR")} {str(SAFENOTES_DIR_PATH / file_name)}')
+        if ' ' in file_name:
+            file_name = file_name.replace(' ', '\\ ')
+        file_full_path = str(SAFENOTES_DIR_PATH / file_name)
+        system(f'{os.getenv("EDITOR")} {file_full_path}')
         self.display()
 
     def edit_note(self, note_path: str) -> None:

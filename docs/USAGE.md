@@ -25,8 +25,14 @@ that it is at least 16 characters long.
 
 # Precautions
 
-Although you are able to edit notes manually without using the safenotes script,
+- Although you are able to edit notes manually without using the safenotes script,
 this is highly unadvisable, as it could lead to corruption.
 For instance, safenotes will use the file name for date of creation reference,
 so if you manually rename the note, safenotes will no longer be able to tell
 when it was created.
+
+- After you finish editing your note, you must save it and leave the text editor.
+If you close your terminal without leaving the text editor, the note will NOT
+be encrypted. If this happened to you, you can choose the option "Manually
+refresh encryptions" in the Safenotes menu, so it will encrypt everything that
+is not currently encrypted.
