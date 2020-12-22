@@ -37,11 +37,18 @@ def define_user_password() -> None:
     print(green('Password set successfully.'))
 
 
-def save_encrypted_file(file_path: str, password: str) -> None:
+def encrypt_file(file_path: str, password: str) -> None:
     """
     Saves an encrypted version of the file and deletes the original one
     """
-    os.system(f'gpg --passphrase {password} -c --batch {file_path}')  # TODO: && shred -u file_path
+    os.system(f'gpg --passphrase \'{password}\' -c --batch {file_path} && shred -u {file_path}')
+
+
+def decrypt_file(file_path: str, password: str) -> None:
+    """
+    Saves an unencrypted version of the file and deletes the original (encrypted) one
+    """
+    os.system(f'gpg --passphrase \'{password}\' --batch {file_path} && rm {file_path}')
 
 
 def load_user_password() -> str:

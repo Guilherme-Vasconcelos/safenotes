@@ -1,9 +1,9 @@
+from files_accessor import encrypt_file, decrypt_file
 from os import listdir, system
 from os.path import isfile, join
 from paths import SAFENOTES_DIR_PATH
 from typing import List
 from sys import exit
-from files_accessor import save_encrypted_file
 import os
 import questionary
 
@@ -35,10 +35,16 @@ class Displayer:
             file_name = file_name.replace(' ', '\\ ')
         file_full_path = str(SAFENOTES_DIR_PATH / file_name)
         system(f'{os.getenv("EDITOR")} {file_full_path}')
+        encrypt_file(file_full_path, self.password)
         self.display()
 
     def edit_note(self, note_path: str) -> None:
+        if '.gpg' not in note_path:
+            raise ValueError('It seems you have unencrypted files.')
+        decrypt_file(note_path, self.password)
+        note_path = note_path.replace('.gpg', '')
         system(f'{os.getenv("EDITOR")} {note_path}')
+        encrypt_file(note_path, self.password)
         self.display()
 
     def handle_choice(self, choice: str) -> None:
