@@ -1,7 +1,7 @@
 from hmac import compare_digest as compare_hash
 from pathlib import Path
 from crypt import crypt
-from colors import red
+from colors import red, green
 
 SAFENOTES_DIR_PATH = Path('~/.config/Safenotes/').expanduser()
 PASSWORD_FILE_PATH = str(SAFENOTES_DIR_PATH / 'password')
@@ -22,17 +22,16 @@ def password_file_exists() -> bool:
 
 
 def define_user_password() -> None:
-    """
-    Defines a password for the user.
-    Caller must decide whether this really must be done.
-    """
+    print(red('It seems you do not have a password yet.'))
+    print('Please, define it below:')
     password = input('>>>')
     hashed_passwd = crypt(password)
     with open(PASSWORD_FILE_PATH, 'w') as f:
         f.write(hashed_passwd)
+    print(green('Password set successfully.'))
 
 
-def load_user_password() -> None:
+def load_user_password() -> str:
     """
     Prompts for password until user gets it right (i.e. hashes match)
     """
