@@ -1,10 +1,7 @@
 from hmac import compare_digest as compare_hash
-from pathlib import Path
+from paths import SAFENOTES_DIR_PATH, PASSWORD_FILE_PATH
 from crypt import crypt
 from colors import red, green
-
-SAFENOTES_DIR_PATH = Path('~/.config/Safenotes/').expanduser()
-PASSWORD_FILE_PATH = str(SAFENOTES_DIR_PATH / 'password')
 
 
 def ensure_safenotes_dir_exists() -> None:
