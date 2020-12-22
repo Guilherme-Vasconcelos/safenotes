@@ -8,6 +8,7 @@ If you have not yet installed it, please refer to docs/INSTALLATION.md.
 ### Table of contents
 
 - [Safenotes for the first time](#safenotes-for-the-first-time)
+- [Precautions](#precautions)
 
 ---
 
@@ -21,3 +22,11 @@ possible without losing access to your notes.
 
 You can choose anything to be your password, but it is recommended
 that it is at least 16 characters long.
+
+# Precautions
+
+Although you are able to edit notes manually without using the safenotes script,
+this is highly unadvisable, as it could lead to corruption.
+For instance, safenotes will use the file name for date of creation reference,
+so if you manually rename the note, safenotes will no longer be able to tell
+when it was created.
