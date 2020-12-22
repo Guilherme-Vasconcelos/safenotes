@@ -24,9 +24,6 @@ If it is your first time using Safenotes, it will ask you to define a password.
 Make sure you pick a password you will remember, because recovering it is not
 possible without losing access to your notes.
 
-You can choose anything to be your password, but it is recommended
-that it is at least 16 characters long.
-
 ### Precautions
 
 - Although you are able to edit notes manually without using the safenotes script,
