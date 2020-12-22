@@ -8,7 +8,7 @@ operating system.
 
 2. You need GPG (GNU Privacy Guard), since it is the software used for encrypting
 and decrypting the files. If you are using a GNU/Linux distribution, you probably
-already have it installed, but you can test it with the command: `gpg --version`.
+already have it installed, but you can make sure with the command: `gpg --version`.
 
 3. You need a compatible version of Python. It is guaranteed to work on version 3.8
 or greater, but I have not tested on 3.7 and below. If you run into problems, please

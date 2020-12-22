@@ -10,16 +10,17 @@ class Displayer:
     Class for displaying all notes, keybinds, handling user action, etc.
     """
 
-    def __init__(self, password):
+    def __init__(self, password: str):
         self.password = password
 
-    def display(self):
+    def display(self) -> None:
         system('clear')
 
-        # TODO: also display date if available and unencrypted/encrypted
-        questionary.select(
+        special_choices = {'New note'}
+        choice = questionary.select(
             'Available notes',
-            choices=self.get_saved_notes_filenames()
+            choices=special_choices + self.get_saved_notes_filenames(),
+            qmark=''
         ).ask()
 
     @staticmethod
