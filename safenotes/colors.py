@@ -1,5 +1,5 @@
 '''
-https://github.com/johnvictorfs/nyaa-cli/blob/master/nyaacli/colors.py
+https://github.com/johnvictorfs/nyaa-cli/commit/f388427
 
 colors.py is a file taken from nyaa-cli: Copyright (c) 2019 John Victor
 
