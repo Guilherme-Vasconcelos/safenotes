@@ -2,7 +2,7 @@
 name = "safenotes"
 version = "0.1.0"
 description = "A program which allows you to write encrypted notes to self"
-authors = ["Guilherme Vasconcelos"]
+authors = ["Guilherme-Vasconcelos"]
 license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
