@@ -11,4 +11,5 @@ Right now, in order to use Safenotes you must:
 4. Source the local Python (should be done automatically by most IDEs. If not,
 run `source .venv/bin/activate`).
 5. Install all dependencies: `poetry install`
-6. Run Safenotes with: `python3 src/safenotes.py`.
+6. Run Safenotes with: `python3 safenotes/safenotes.py` or `python3 safenotes.py` if you are
+already in the same directory as `safenotes.py`.
