@@ -3,18 +3,22 @@
 Hello! Here you will find everything about Safenotes usage.
 If you have not yet installed it, please refer to docs/INSTALLATION.md.
 
+Safenotes is a work in progress, so not all features are available yet.
+
 ---
 
 ### Table of contents
 
 - [Safenotes for the first time](#safenotes-for-the-first-time)
 - [Precautions](#precautions)
+- [Creating or editing notes](#creating-or-editing-notes)
 
 ---
 
 ### Safenotes for the first time
 
 In order to run Safenotes, you must use the command: `python3 safenotes.py`
+(remember to be in the same directory).
 
 If it is your first time using Safenotes, it will ask you to define a password.
 Make sure you pick a password you will remember, because recovering it is not
@@ -23,16 +27,30 @@ possible without losing access to your notes.
 You can choose anything to be your password, but it is recommended
 that it is at least 16 characters long.
 
-# Precautions
+### Precautions
 
 - Although you are able to edit notes manually without using the safenotes script,
 this is highly unadvisable, as it could lead to corruption.
-For instance, safenotes will use the file name for date of creation reference,
-so if you manually rename the note, safenotes will no longer be able to tell
-when it was created.
+For instance, safenotes will use the file name as reference to check if the
+file is encrypted or not.
 
 - After you finish editing your note, you must save it and leave the text editor.
 If you close your terminal without leaving the text editor, the note will NOT
 be encrypted. If this happened to you, you can choose the option "Manually
-refresh encryptions" in the Safenotes menu, so it will encrypt everything that
-is not currently encrypted.
+refresh encryptions" (not yet implemented!) in the Safenotes menu, so it will
+encrypt everything that is not currently encrypted.
+
+### Creating or editing notes
+
+After you've been prompted for your password and "logged in", at the moment
+you are able to:
+
+- Create new notes by selecting the "New note" button
+- Edit current notes by selecting the note
+
+Once you select one of these two options, your system's default editor will open
+(if you have not customized the EDITOR environment variable, it will probably
+be nano. You can save your text with ctrl s and quit the editor with ctrl x).
+Then you will be back to Safenotes' menu, in which you will be able to quit if
+you want. Be careful not to close the terminal without quiting safenotes first,
+as this can currently lead to files not being encrypted.

@@ -7,7 +7,6 @@ from sys import exit
 import os
 import questionary
 
-# TODO: add docstrings
 
 class Displayer:
     """

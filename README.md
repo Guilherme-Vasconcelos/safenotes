@@ -1,6 +1,6 @@
 # Safenotes
 
-**Work in progress! Safenotes is not usable yet!**
+**Work in progress! Safenotes is usable, but has yet to improve!**
 
 A program which allows you to write encrypted notes to self.
 
