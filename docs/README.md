@@ -2,8 +2,6 @@
 
 Hello! In this directory you will find documentation for Safenotes.
 
-Let me know if anything is wrong or missing.
-
 ### Topics
 
 1. [PREREQUISITES.md](PREREQUISITES.md)
@@ -13,9 +11,7 @@ Let me know if anything is wrong or missing.
 
 2. [INSTALLATION.md](INSTALLATION.md)
 
-    Contains instructions on how to do a manual installation of Safenotes.
-    For the moment, the package is not published yet, so it is necessary to
-    follow these instructions to install it.
+    Complete guide on how to install Safenotes.
 
 3. [USAGE.md](USAGE.md)
 
