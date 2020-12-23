@@ -12,4 +12,5 @@ already have it installed, but you can make sure with the command: `gpg --versio
 
 3. You need a compatible version of Python. It is guaranteed to work on version 3.8
 or greater, but I have not tested on 3.7 and below. If you run into problems, please
-let me know by opening an issue or pull request.
+let me know by opening an issue or pull request, I will be glad to fix compatibility
+problems for older versions of Python 3.

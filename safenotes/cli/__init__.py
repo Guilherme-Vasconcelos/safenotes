@@ -1,5 +1,7 @@
-from displayer import Displayer
-import files_accessor
+#!/usr/bin/env python3
+
+from safenotes.displayer import Displayer
+from safenotes import files_accessor
 
 
 def main():

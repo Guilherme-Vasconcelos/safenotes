@@ -1,8 +1,8 @@
-import os
+from safenotes.paths import SAFENOTES_DIR_PATH, PASSWORD_FILE_PATH
 from hmac import compare_digest as compare_hash
-from paths import SAFENOTES_DIR_PATH, PASSWORD_FILE_PATH
+from safenotes.colors import red, green
 from crypt import crypt
-from colors import red, green
+import os
 
 
 def ensure_safenotes_dir_exists() -> None:

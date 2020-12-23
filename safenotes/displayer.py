@@ -1,11 +1,11 @@
-from files_accessor import encrypt_file, decrypt_file
-from os import listdir, system
+from safenotes.files_accessor import encrypt_file, decrypt_file
+from safenotes.paths import SAFENOTES_DIR_PATH
 from os.path import isfile, join
-from paths import SAFENOTES_DIR_PATH
+from os import listdir, system
 from typing import List
 from sys import exit
-import os
 import questionary
+import os
 
 
 class Displayer:
