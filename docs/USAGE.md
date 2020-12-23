@@ -12,6 +12,7 @@ things will be added here once they are implemented.
 - [Safenotes for the first time](#safenotes-for-the-first-time)
 - [Precautions](#precautions)
 - [Creating or editing notes](#creating-or-editing-notes)
+- [Refresh encryptions](#refresh-encryptions)
 
 ---
 
