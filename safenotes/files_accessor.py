@@ -2,8 +2,11 @@ from safenotes.paths import SAFENOTES_DIR_PATH, PASSWORD_FILE_PATH
 from safenotes.colors import red, green, yellow, blue
 from safenotes.helpers import display_colored_text
 from hmac import compare_digest as compare_hash
+from os.path import isfile, join
 from getpass import getpass
 from crypt import crypt
+from typing import List
+from os import listdir
 
 import os
 
@@ -85,3 +88,10 @@ def edit_file_and_encrypt(note_path: str, password: str) -> None:
     """ Edits a file and saves an encrypted version of it """
     open_os_editor_on_file(note_path)
     encrypt_file(note_path, password)
+
+
+def get_saved_notes_filenames() -> List[str]:
+    """ Get all filenames that are stored in .config/Safenotes/ and are not data/password files """
+    notes_path = str(SAFENOTES_DIR_PATH)
+    filenames = [f for f in listdir(notes_path) if isfile(join(notes_path, f)) and f not in {'data', 'password'}]
+    return filenames
