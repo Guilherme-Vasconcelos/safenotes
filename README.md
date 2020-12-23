@@ -1,4 +1,4 @@
-# Safenotes
+# Safenotes [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Work in progress! Safenotes is usable, but has yet to improve!**
 

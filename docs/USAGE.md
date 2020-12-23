@@ -1,9 +1,9 @@
 # Usage
 
-Hello! Here you will find everything about Safenotes usage.
-If you have not yet installed it, please refer to docs/INSTALLATION.md.
+If you have not yet installed Safenotes, please refer to docs/INSTALLATION.md.
 
-Safenotes is a work in progress, so not all features are available yet.
+Safenotes is a work in progress, so not all features are available yet. More
+things will be added here once they are implemented.
 
 ---
 
@@ -42,8 +42,7 @@ encrypt everything that is not currently encrypted.
 
 ### Creating or editing notes
 
-After you've been prompted for your password and "logged in", at the moment
-you are able to:
+After you've been prompted for your password and "logged in", you can:
 
 - Create new notes by selecting the "New note" button
 - Edit current notes by selecting the note
