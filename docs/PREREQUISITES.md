@@ -18,3 +18,5 @@ your distribution manual to see installation instructions.
 or greater, but I have not tested on 3.7 and below. If you run into problems, please
 let me know by opening an issue or pull request, I will be glad to fix compatibility
 problems for older versions of Python 3.
+
+[<- Go back to docs root](README.md) | [Proceed to installation ->](INSTALLATION.md)

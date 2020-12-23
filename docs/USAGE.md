@@ -53,3 +53,6 @@ be nano. You can save your text with ctrl s and quit the editor with ctrl x.
 Then you will be back to Safenotes' menu, in which you will be able to quit if
 you want. Be careful not to close the terminal without quiting safenotes first,
 as this can currently lead to files not being encrypted.
+
+[<- Go back to docs root](README.md)
+

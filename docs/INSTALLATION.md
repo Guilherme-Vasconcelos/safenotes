@@ -27,3 +27,5 @@ the `safenotes` command.
 7. Run Safenotes with: `safenotes`. This requires the virtual environment to be
 activated (again, you can check if it is with `which python3`).
 If you wish to run it manually instead, you can do so with `python3 safenotes/cli/__init__.py`.
+
+[<- Go back to prerequisites](PREREQUISITES.md) | [Proceed to usage ->](USAGE.md)
