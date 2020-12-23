@@ -36,9 +36,7 @@ file is encrypted or not.
 
 - After you finish editing your note, you must save it and leave the text editor.
 If you close your terminal without leaving the text editor, the note will NOT
-be encrypted. If this happened to you, you can choose the option "Manually
-refresh encryptions" (not yet implemented!) in the Safenotes menu, so it will
-encrypt everything that is not currently encrypted.
+be encrypted. Refer to [Refresh encryptions](#refresh-encryptions) for more details.
 
 ### Creating or editing notes
 
@@ -54,5 +52,13 @@ Then you will be back to Safenotes' menu, in which you will be able to quit if
 you want. Be careful not to close the terminal without quiting safenotes first,
 as this can currently lead to files not being encrypted.
 
-[<- Go back to docs root](README.md)
+### Refresh encryptions
 
+If you have closed your terminal without quiting Safenotes first, there is a
+possibility that some notes will not be encrypted (you can tell if a note is
+encrypted by checking if its name ends with `.gpg`).
+
+If this happened to you, you can pick the option `Refresh encryptions`, which
+will go over each file, and encrypt it if it is not already.
+
+[<- Go back to docs root](README.md)

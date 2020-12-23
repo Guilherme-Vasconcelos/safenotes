@@ -1,9 +1,7 @@
 from safenotes.helpers import display_colored_text
 from safenotes.paths import SAFENOTES_DIR_PATH
 from safenotes.colors import red, blue
-from os.path import isfile, join
-from os import listdir, system
-from typing import List
+from os import system
 from sys import exit
 
 import safenotes.files_accessor as files_accessor
@@ -21,10 +19,10 @@ class Displayer:
         """ Used to display all notes and allowing user to create new ones, edit existing, etc. """
         system('clear')
 
-        special_choices = ['New note', 'Quit', 'Manually refresh encryptions']
+        special_choices = ['New note', 'Quit', 'Refresh encryptions']
         choice = questionary.select(
             'Available notes',
-            choices=special_choices + self.get_saved_notes_filenames(),
+            choices=special_choices + files_accessor.get_saved_notes_filenames(),
             qmark=''
         ).ask()
 
@@ -43,10 +41,21 @@ class Displayer:
     def edit_note(self, note_path: str) -> None:
         """ Unencrypts a note, allows user to edit it, then encrypts it again """
         if not files_accessor.is_file_encrypted(note_path):
-            raise ValueError('It seems you are trying to edit an unencrypted file.')
+            raise ValueError('It seems you are trying to edit an unencrypted file. ' +
+                             'Please, consider refreshing the encryptions.')
         files_accessor.decrypt_file(note_path, self.password)
         note_path = note_path.replace('.gpg', '')
         files_accessor.edit_file_and_encrypt(note_path, self.password)
+        self.display()
+
+    def refresh_encryptions(self) -> None:
+        files_to_encrypt = [
+            f for f in files_accessor.get_saved_notes_filenames() if not files_accessor.is_file_encrypted(f)
+        ]
+
+        for file in files_to_encrypt:
+            file_path = str(SAFENOTES_DIR_PATH / file)
+            files_accessor.encrypt_file(file_path, self.password)
         self.display()
 
     def handle_choice(self, choice: str) -> None:
@@ -54,7 +63,7 @@ class Displayer:
         available_choices = {
             'New note': self.create_new_note,
             'Quit': exit,
-            'Manually refresh encryptions': self.not_yet_implemented_error
+            'Refresh encryptions': self.refresh_encryptions
         }
 
         if choice in available_choices:
@@ -62,13 +71,3 @@ class Displayer:
         else:  # Else is assumed to be edit action, choice is the file name
             choice = choice.replace(' ', '\\ ')
             self.edit_note(str(SAFENOTES_DIR_PATH / choice))
-
-    def not_yet_implemented_error(self) -> None:
-        raise NotImplementedError('Sorry, this functionality is not available yet!')
-
-    @staticmethod
-    def get_saved_notes_filenames() -> List[str]:
-        """ Get all filenames that are stored in .config/Safenotes/ and are not data/password files """
-        notes_path = str(SAFENOTES_DIR_PATH)
-        filenames = [f for f in listdir(notes_path) if isfile(join(notes_path, f)) and f not in {'data', 'password'}]
-        return filenames
