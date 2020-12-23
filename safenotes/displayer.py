@@ -1,22 +1,22 @@
-from safenotes.files_accessor import encrypt_file, decrypt_file
 from safenotes.paths import SAFENOTES_DIR_PATH
 from os.path import isfile, join
 from os import listdir, system
 from typing import List
 from sys import exit
+
+import safenotes.files_accessor as files_accessor
 import questionary
-import os
 
 
 class Displayer:
     """
-    Class for displaying all notes, keybinds, handling user action, etc.
+    Class for displaying all notes, handling user action, etc.
     """
-
-    def __init__(self, password: str):
+    def __init__(self, password: str) -> None:
         self.password = password
 
     def display(self) -> None:
+        """ Used to display all notes and allowing user to create new ones, edit existing, etc. """
         system('clear')
 
         special_choices = ['New note', 'Quit', 'Manually refresh encryptions']
@@ -29,24 +29,24 @@ class Displayer:
         self.handle_choice(choice)
 
     def create_new_note(self) -> None:
+        """ Creates a new note and encrypts it """
         file_name = input('Please decide on a name for the file (this name WILL be publicly visible): ')
-        if ' ' in file_name:
-            file_name = file_name.replace(' ', '\\ ')
-        file_full_path = str(SAFENOTES_DIR_PATH / file_name)
-        system(f'{os.getenv("EDITOR")} {file_full_path}')
-        encrypt_file(file_full_path, self.password)
+        file_name = file_name.replace(' ', '\\ ')
+        note_path = str(SAFENOTES_DIR_PATH / file_name)
+        files_accessor.edit_file_and_encrypt(note_path, self.password)
         self.display()
 
     def edit_note(self, note_path: str) -> None:
-        if '.gpg' not in note_path:
-            raise ValueError('It seems you have unencrypted files.')
-        decrypt_file(note_path, self.password)
+        """ Unencrypts a note, allows user to edit it, then encrypts it again """
+        if not files_accessor.is_file_encrypted(note_path):
+            raise ValueError('It seems you are trying to edit an unencrypted file.')
+        files_accessor.decrypt_file(note_path, self.password)
         note_path = note_path.replace('.gpg', '')
-        system(f'{os.getenv("EDITOR")} {note_path}')
-        encrypt_file(note_path, self.password)
+        files_accessor.edit_file_and_encrypt(note_path, self.password)
         self.display()
 
     def handle_choice(self, choice: str) -> None:
+        """ Call the correct method based on user's input """
         available_choices = {
             'New note': self.create_new_note,
             'Quit': exit,
@@ -55,9 +55,8 @@ class Displayer:
 
         if choice in available_choices:
             available_choices[choice]()
-        else:  # Else is assumed to be edit action
-            if ' ' in choice:
-                choice = choice.replace(' ', '\\ ')
+        else:  # Else is assumed to be edit action, choice is the file name
+            choice = choice.replace(' ', '\\ ')
             self.edit_note(str(SAFENOTES_DIR_PATH / choice))
 
     def not_yet_implemented_error(self) -> None:
@@ -65,6 +64,7 @@ class Displayer:
 
     @staticmethod
     def get_saved_notes_filenames() -> List[str]:
+        """ Get all filenames that are stored in .config/Safenotes/ and are not data/password files """
         notes_path = str(SAFENOTES_DIR_PATH)
         filenames = [f for f in listdir(notes_path) if isfile(join(notes_path, f)) and f not in {'data', 'password'}]
         return filenames
