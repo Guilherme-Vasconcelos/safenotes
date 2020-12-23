@@ -1,4 +1,6 @@
+from safenotes.helpers import display_colored_text
 from safenotes.paths import SAFENOTES_DIR_PATH
+from safenotes.colors import red, blue
 from os.path import isfile, join
 from os import listdir, system
 from typing import List
@@ -30,7 +32,9 @@ class Displayer:
 
     def create_new_note(self) -> None:
         """ Creates a new note and encrypts it """
-        file_name = input('Please decide on a name for the file (this name WILL be publicly visible): ')
+        display_colored_text('Please decide on a name for the file ', blue)
+        display_colored_text('(this name WILL be publicly accessible): ', red)
+        file_name = input()
         file_name = file_name.replace(' ', '\\ ')
         note_path = str(SAFENOTES_DIR_PATH / file_name)
         files_accessor.edit_file_and_encrypt(note_path, self.password)
