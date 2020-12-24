@@ -1,6 +1,7 @@
 from safenotes.helpers import display_colored_text
 from safenotes.paths import SAFENOTES_DIR_PATH
 from safenotes.colors import red, blue
+from typing import Callable, Dict
 from os import system
 from sys import exit
 
@@ -60,7 +61,7 @@ class Displayer:
 
     def handle_choice(self, choice: str) -> None:
         """ Call the correct method based on user's input """
-        available_choices = {
+        available_choices: Dict[str, Callable] = {
             'New note': self.create_new_note,
             'Quit': exit,
             'Refresh encryptions': self.refresh_encryptions
