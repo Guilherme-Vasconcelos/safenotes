@@ -1,5 +1,13 @@
 # Installation
 
+### Automatic installation instructions
+
+- To install the latest version:
+`python3 -m pip install git+git://github.com/Guilherme-Vasconcelos/safenotes --user`
+- If you wish to install a specific version instead:
+`python3 -m pip install git+git://github.com/Guilherme-Vasconcelos/safenotes/tree/<tag> --user`
+- After installing, you can launch safenotes with: `safenotes`
+
 ### Manual installation instructions
 
 1. [Install Poetry](https://python-poetry.org/docs/#installation), which is used for managing
