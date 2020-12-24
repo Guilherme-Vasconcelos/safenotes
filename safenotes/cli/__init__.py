@@ -13,7 +13,7 @@ def main():
 
     password = files_accessor.load_user_password()
     displayer = Displayer(password)
-    displayer.display()
+    displayer.display_initial_menu()
 
 
 if __name__ == "__main__":
