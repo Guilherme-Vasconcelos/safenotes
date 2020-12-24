@@ -36,7 +36,7 @@ class Displayer:
         display_colored_text('What would you like to do?', blue)
         choice = questionary.select(
             note_name,
-            choices=['Edit', 'Delete', 'Quit'],
+            choices=['Edit', 'Delete', 'Go back to initial menu'],
             qmark=''
         ).ask()
 
@@ -66,7 +66,12 @@ class Displayer:
         if not files_accessor.is_file_encrypted(note_path):
             raise ValueError('It seems you are trying to delete an unencrypted file. ' +
                              'Please, consider encrypting it first.')
-        remove(note_path)
+
+        # Removing files using Python requires spaces not to be escaped, which is
+        # not what being done at the moment (because other shell operations do
+        # need the spaces to be escaped). Because of that rm is used instead
+        # of Python's os.remove.
+        system(f'rm {note_path}')
         self.display_initial_menu()
 
     def refresh_encryptions(self) -> None:
@@ -98,13 +103,10 @@ class Displayer:
         # Since many of the functions here require arguments I don't think
         # it's possible to use the dict like before
 
+        note_path = files_accessor.note_full_path(note_name)
         if choice == 'Edit':
-            self.edit_note(files_accessor.note_full_path(note_name))
+            self.edit_note(note_path)
         elif choice == 'Delete':
-            ...
+            self.delete_note(note_path)
         else:
             self.display_initial_menu()
-
-    @staticmethod
-    def err_not_implemented():
-        raise NotImplementedError('Sorry, this is not yet implemented!')
