@@ -99,4 +99,5 @@ def get_saved_notes_filenames() -> List[str]:
 
 def note_full_path(note_name: str) -> str:
     """ Given a note name, returns its full path (i.e. /home/user/.config/.../note) """
+    note_name = note_name.replace(' ', '\\ ')
     return str(SAFENOTES_DIR_PATH / note_name)
