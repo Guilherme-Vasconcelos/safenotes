@@ -1,12 +1,5 @@
 # Installation
 
-At the moment, since the package is not published, in order to install it you
-need to do a manual installation.
-
-### Automatic installation instructions
-
-1. Soon!
-
 ### Manual installation instructions
 
 1. [Install Poetry](https://python-poetry.org/docs/#installation), which is used for managing
