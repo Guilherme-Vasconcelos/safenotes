@@ -1,8 +1,7 @@
 from safenotes.helpers import display_colored_text
-from safenotes.paths import SAFENOTES_DIR_PATH
-from safenotes.colors import red, blue, yellow
+from safenotes.colors import red, blue
 from typing import Callable, Dict
-from os import system
+from os import system, remove
 from sys import exit
 
 import safenotes.files_accessor as files_accessor
@@ -62,6 +61,14 @@ class Displayer:
         files_accessor.edit_file_and_encrypt(note_path, self.password)
         self.display_initial_menu()
 
+    def delete_note(self, note_path: str) -> None:
+        """ Deletes an encrypted note. If note is not encrypted raises error. """
+        if not files_accessor.is_file_encrypted(note_path):
+            raise ValueError('It seems you are trying to delete an unencrypted file. ' +
+                             'Please, consider encrypting it first.')
+        remove(note_path)
+        self.display_initial_menu()
+
     def refresh_encryptions(self) -> None:
         files_to_encrypt = [
             f for f in files_accessor.get_saved_notes_filenames() if not files_accessor.is_file_encrypted(f)
@@ -87,17 +94,16 @@ class Displayer:
 
     def handle_choice_for_note(self, note_name: str, choice: str) -> None:
         """ Call the correct method based on user's input at note menu """
-        available_choices: Dict[str, Callable] = {
-            'Edit': self.edit_note,
-            'Delete': self.err_not_implemented,
-            'Go back to initial menu': self.display_initial_menu
-        }
+
+        # Since many of the functions here require arguments I don't think
+        # it's possible to use the dict like before
 
         if choice == 'Edit':
-            # Edit is the only choice that requires arguments
-            available_choices[choice](files_accessor.note_full_path(note_name))
+            self.edit_note(files_accessor.note_full_path(note_name))
+        elif choice == 'Delete':
+            ...
         else:
-            available_choices[choice]()
+            self.display_initial_menu()
 
     @staticmethod
     def err_not_implemented():
