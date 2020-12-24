@@ -95,3 +95,8 @@ def get_saved_notes_filenames() -> List[str]:
     notes_path = str(SAFENOTES_DIR_PATH)
     filenames = [f for f in listdir(notes_path) if isfile(join(notes_path, f)) and f not in {'data', 'password'}]
     return filenames
+
+
+def note_full_path(note_name: str) -> str:
+    """ Given a note name, returns its full path (i.e. /home/user/.config/.../note) """
+    return str(SAFENOTES_DIR_PATH / note_name)

@@ -16,7 +16,7 @@ class Displayer:
     def __init__(self, password: str) -> None:
         self.password = password
 
-    def display(self) -> None:
+    def display_initial_menu(self) -> None:
         """ Used to display all notes and allowing user to create new ones, edit existing, etc. """
         system('clear')
 
@@ -35,9 +35,9 @@ class Displayer:
         display_colored_text('(this name WILL be publicly accessible): ', red)
         file_name = input()
         file_name = file_name.replace(' ', '\\ ')
-        note_path = str(SAFENOTES_DIR_PATH / file_name)
+        note_path = files_accessor.note_full_path(file_name)
         files_accessor.edit_file_and_encrypt(note_path, self.password)
-        self.display()
+        self.display_initial_menu()
 
     def edit_note(self, note_path: str) -> None:
         """ Unencrypts a note, allows user to edit it, then encrypts it again """
@@ -47,7 +47,7 @@ class Displayer:
         files_accessor.decrypt_file(note_path, self.password)
         note_path = note_path.replace('.gpg', '')
         files_accessor.edit_file_and_encrypt(note_path, self.password)
-        self.display()
+        self.display_initial_menu()
 
     def refresh_encryptions(self) -> None:
         files_to_encrypt = [
@@ -55,9 +55,9 @@ class Displayer:
         ]
 
         for file in files_to_encrypt:
-            file_path = str(SAFENOTES_DIR_PATH / file)
+            file_path = files_accessor.note_full_path(file)
             files_accessor.encrypt_file(file_path, self.password)
-        self.display()
+        self.display_initial_menu()
 
     def handle_choice(self, choice: str) -> None:
         """ Call the correct method based on user's input """
@@ -71,4 +71,4 @@ class Displayer:
             available_choices[choice]()
         else:  # Else is assumed to be edit action, choice is the file name
             choice = choice.replace(' ', '\\ ')
-            self.edit_note(str(SAFENOTES_DIR_PATH / choice))
+            self.edit_note(files_accessor.note_full_path(choice))
