@@ -1,7 +1,7 @@
 from safenotes.helpers import display_colored_text
 from safenotes.colors import red, blue
 from typing import Callable, Dict
-from os import system, remove
+from os import system
 from sys import exit
 
 import safenotes.files_accessor as files_accessor
@@ -36,7 +36,7 @@ class Displayer:
         display_colored_text('What would you like to do?', blue)
         choice = questionary.select(
             note_name,
-            choices=['Edit', 'Delete', 'Go back to initial menu'],
+            choices=['Read/Edit', 'Delete', 'Go back to initial menu'],
             qmark=''
         ).ask()
 
@@ -103,7 +103,7 @@ class Displayer:
         # Since many of the functions here require arguments I don't think
         # it's possible to use the dict like before
         note_path = files_accessor.note_full_path(note_name)
-        if choice == 'Edit':
+        if choice == 'Read/Edit':
             self.edit_note(note_path)
         elif choice == 'Delete':
             self.delete_note(note_path)
