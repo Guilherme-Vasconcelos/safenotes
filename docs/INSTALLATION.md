@@ -1,5 +1,10 @@
 # Installation
 
+### Automatic installation instructions
+
+1. Run the command: `pip install git+git://github.com/Guilherme-Vasconcelos/safenotes`
+2. Launch safenotes with: `safenotes`
+
 ### Manual installation instructions
 
 1. [Install Poetry](https://python-poetry.org/docs/#installation), which is used for managing
