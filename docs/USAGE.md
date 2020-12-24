@@ -30,11 +30,6 @@ encrypt the notes.
 
 ### Precautions
 
-- Although you are able to edit notes manually without using the safenotes script,
-this is highly unadvisable, as it could lead to corruption.
-For instance, safenotes is currently using the file name as reference to check if the
-file is encrypted or not.
-
 - After you finish editing your note, you must save it and leave the text editor.
 If you close your terminal without leaving the text editor, the note will NOT
 be encrypted. Refer to [Refresh encryptions](#refresh-encryptions) for more details.
