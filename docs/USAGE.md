@@ -19,9 +19,10 @@ things will be added here once they are implemented.
 ### Safenotes for the first time
 
 After following the installation steps, you can use the command `safenotes`
-to run the program. Remember to check if your virtual environment is activated,
-otherwise you will not have the dependencies and the `safenotes` command. If
-you see an unrecognized command error, please refer to docs/INSTALLATION.md.
+to run the program. If you went with the manual installation, you must make
+sure your virtual environment is activated, otherwise you will not have the
+dependencies and the `safenotes` command. If you see an unrecognized command
+error, please refer to docs/INSTALLATION.md.
 
 After that, it will ask you to define a password. Make sure you pick one you
 will remember, because recovering it is not possible without losing access

@@ -102,7 +102,6 @@ class Displayer:
 
         # Since many of the functions here require arguments I don't think
         # it's possible to use the dict like before
-
         note_path = files_accessor.note_full_path(note_name)
         if choice == 'Edit':
             self.edit_note(note_path)

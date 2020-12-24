@@ -2,8 +2,11 @@
 
 ### Automatic installation instructions
 
-1. Run the command: `pip install git+git://github.com/Guilherme-Vasconcelos/safenotes`
-2. Launch safenotes with: `safenotes`
+- To install the latest version:
+`python3 -m pip install git+git://github.com/Guilherme-Vasconcelos/safenotes --user`
+- If you wish to install a specific version instead:
+`python3 -m pip install git+git://github.com/Guilherme-Vasconcelos/safenotes/tree/<tag> --user`
+- After installing, you can launch safenotes with: `safenotes`
 
 ### Manual installation instructions
 
