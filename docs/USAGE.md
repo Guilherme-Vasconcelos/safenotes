@@ -11,7 +11,6 @@ If you have not yet installed Safenotes, please refer to docs/INSTALLATION.md.
 - [Creating notes](#creating-notes)
 - [Refresh encryptions](#refresh-encryptions)
 - [Selecting a note - Reading, editing and deleting](#selecting-a-note---reading-editing-and-deleting)
-- [Deleting notes](#deleting-notes)
 
 ---
 
