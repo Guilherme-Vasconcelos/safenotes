@@ -1,6 +1,7 @@
 from safenotes.helpers import display_colored_text
 from safenotes.colors import red, blue
 from typing import Callable, Dict
+from os.path import basename
 from os import system
 from sys import exit
 
@@ -35,8 +36,8 @@ class Displayer:
         display_colored_text(f'Note: {note_name}\n', blue)
         display_colored_text('What would you like to do?', blue)
         choice = questionary.select(
-            note_name,
-            choices=['Read/Edit', 'Delete', 'Go back to initial menu'],
+            'Available options',
+            choices=['Read/Edit', 'Delete', 'Rename', 'Go back to initial menu'],
             qmark=''
         ).ask()
 
@@ -59,9 +60,15 @@ class Displayer:
         self.display_initial_menu()
 
     def delete_note(self, note_path: str) -> None:
-        """ Deletes an encrypted note. If note is not encrypted raises error. """
+        """ Deletes an encrypted note """
         files_accessor.delete_encrypted_file(note_path)
         self.display_initial_menu()
+
+    def rename_note(self, note_path: str) -> None:
+        """ Renames an encrypted note """
+        note_name = basename(note_path)
+        files_accessor.rename_encrypted_file(note_path)
+        self.display_menu_for_note(note_name)
 
     def refresh_encryptions(self) -> None:
         files_to_encrypt = [
@@ -96,5 +103,7 @@ class Displayer:
             self.edit_note(note_path)
         elif choice == 'Delete':
             self.delete_note(note_path)
+        elif choice == 'Rename':
+            self.rename_note(note_path)
         else:
             self.display_initial_menu()
