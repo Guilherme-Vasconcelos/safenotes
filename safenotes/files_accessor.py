@@ -3,10 +3,10 @@ from safenotes.colors import red, green, yellow, blue
 from safenotes.helpers import display_colored_text
 from hmac import compare_digest as compare_hash
 from os.path import isfile, join
+from os import listdir, system
 from getpass import getpass
 from crypt import crypt
 from typing import List
-from os import listdir
 
 import os
 
@@ -44,8 +44,18 @@ def define_user_password() -> None:
     display_colored_text('Password set successfully.\n', green)
 
 
+def is_file_encrypted(file_path: str) -> bool:
+    """
+    TODO: look for a better implementation
+    Verifies if given file is encrypted
+    """
+    return '.gpg' in file_path
+
+
 def encrypt_file(file_path: str, password: str) -> None:
     """ Saves an encrypted version of the file and deletes the original one """
+    if is_file_encrypted(file_path):
+        raise ValueError('It seems the file is already encrypted.')
     os.system(f'gpg --passphrase \'{password}\' -c --batch {file_path} && shred -u {file_path}')
 
 
@@ -53,6 +63,8 @@ def decrypt_file(file_path: str, password: str) -> None:
     """
     Saves an unencrypted version of the file and deletes the original (encrypted) one
     """
+    if not is_file_encrypted(file_path):
+        raise ValueError('It seems the file is not encrypted.')
     os.system(f'gpg --passphrase \'{password}\' --batch {file_path} && rm {file_path}')
 
 
@@ -71,23 +83,27 @@ def load_user_password() -> str:
     return password_typed
 
 
-def is_file_encrypted(file_path: str) -> bool:
-    """
-    TODO: look for a better implementation
-    Verifies if given file is encrypted
-    """
-    return '.gpg' in file_path
-
-
-def open_os_editor_on_file(note_path: str) -> None:
+def open_os_editor_on_file(file_path: str) -> None:
     """ Opens the default OS editor on a given path. Unless user changed $EDITOR, it should probably be nano """
-    os.system(f'{os.getenv("EDITOR")} {note_path}')
+    os.system(f'{os.getenv("EDITOR")} {file_path}')
 
 
-def edit_file_and_encrypt(note_path: str, password: str) -> None:
+def edit_file_and_encrypt(file_path: str, password: str) -> None:
     """ Edits a file and saves an encrypted version of it """
-    open_os_editor_on_file(note_path)
-    encrypt_file(note_path, password)
+    open_os_editor_on_file(file_path)
+    encrypt_file(file_path, password)
+
+
+def delete_encrypted_file(file_path: str) -> None:
+    """ Deletes an encrypted file, or raises error if file is not encrypted. """
+    if not is_file_encrypted(file_path):
+        raise ValueError('It seems the file is not encrypted.')
+
+    # Removing files using Python requires spaces not to be escaped, which is
+    # not what being done at the moment (because other shell operations do
+    # need the spaces to be escaped). Because of that rm is used instead
+    # of Python's os.remove.
+    system(f'rm {file_path}')
 
 
 def get_saved_notes_filenames() -> List[str]:
