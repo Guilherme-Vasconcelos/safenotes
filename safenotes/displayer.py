@@ -19,7 +19,7 @@ class Displayer:
         """ Used to display all notes and allowing user to create new ones, edit existing, etc. """
         system('clear')
 
-        special_choices = ['New note', 'Quit', 'Refresh encryptions']
+        special_choices = ['New note', 'Refresh encryptions', 'Quit']
         choice = questionary.select(
             'Available options',
             choices=special_choices + files_accessor.get_saved_notes_filenames(),
@@ -53,9 +53,6 @@ class Displayer:
 
     def edit_note(self, note_path: str) -> None:
         """ Unencrypts a note, allows user to edit it, then encrypts it again """
-        if not files_accessor.is_file_encrypted(note_path):
-            raise ValueError('It seems you are trying to edit an unencrypted file. ' +
-                             'Please, consider refreshing the encryptions.')
         files_accessor.decrypt_file(note_path, self.password)
         note_path = note_path.replace('.gpg', '')
         files_accessor.edit_file_and_encrypt(note_path, self.password)
@@ -63,15 +60,7 @@ class Displayer:
 
     def delete_note(self, note_path: str) -> None:
         """ Deletes an encrypted note. If note is not encrypted raises error. """
-        if not files_accessor.is_file_encrypted(note_path):
-            raise ValueError('It seems you are trying to delete an unencrypted file. ' +
-                             'Please, consider encrypting it first.')
-
-        # Removing files using Python requires spaces not to be escaped, which is
-        # not what being done at the moment (because other shell operations do
-        # need the spaces to be escaped). Because of that rm is used instead
-        # of Python's os.remove.
-        system(f'rm {note_path}')
+        files_accessor.delete_encrypted_file(note_path)
         self.display_initial_menu()
 
     def refresh_encryptions(self) -> None:
@@ -88,8 +77,8 @@ class Displayer:
         """ Call the correct method based on user's input at initial menu """
         available_choices: Dict[str, Callable] = {
             'New note': self.create_new_note,
-            'Quit': exit,
-            'Refresh encryptions': self.refresh_encryptions
+            'Refresh encryptions': self.refresh_encryptions,
+            'Quit': exit
         }
 
         if choice in available_choices:
