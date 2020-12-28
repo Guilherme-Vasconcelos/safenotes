@@ -67,8 +67,8 @@ class Displayer:
     def rename_note(self, note_path: str) -> None:
         """ Renames an encrypted note """
         note_name = basename(note_path)
-        files_accessor.rename_encrypted_file(note_path)
-        self.display_menu_for_note(note_name)
+        new_name = files_accessor.rename_encrypted_file(note_path)
+        self.display_menu_for_note(new_name)
 
     def refresh_encryptions(self) -> None:
         files_to_encrypt = [

@@ -1,8 +1,8 @@
 from safenotes.paths import SAFENOTES_DIR_PATH, PASSWORD_FILE_PATH
 from safenotes.colors import red, green, yellow, blue
+from os.path import isfile, join, basename, dirname
 from safenotes.helpers import display_colored_text
 from hmac import compare_digest as compare_hash
-from os.path import isfile, join, basename
 from os import listdir, system
 from getpass import getpass
 from crypt import crypt
@@ -99,34 +99,30 @@ def delete_encrypted_file(file_path: str) -> None:
     if not is_file_encrypted(file_path):
         raise ValueError('It seems the file is not encrypted.')
 
-    # Removing files using Python requires spaces not to be escaped, which is
-    # not what being done at the moment (because other shell operations do
-    # need the spaces to be escaped). Because of that rm is used instead
-    # of Python's os.remove.
     system(f'rm {file_path}')
 
 
-def rename_encrypted_file(file_path: str) -> None:
-    """ Renames an encrypted file, or raises error if file is not encrypted. """
+def rename_encrypted_file(file_path: str) -> str:
+    """ Renames an encrypted file, or raises error if file is not encrypted. Returns the new name """
     if not is_file_encrypted(file_path):
         raise ValueError('It seems the file is not encrypted.')
 
     system('clear')
     file_basename = basename(file_path)
-    display_colored_text(f'Please decide on a new name for the note. The current name is {file_basename}\n', blue)
-    display_colored_text('Note: do not end the note name with .gpg. Let safenotes handle this.', yellow)
+    display_colored_text(
+        f'Please decide on a new name for the note. The current name is {file_basename.replace(".gpg", "")}\n',
+        blue
+    )
     display_colored_text('(This name WILL be publicly accessible): ', red)
     new_name = input()
-    if '.gpg' in new_name:
-        raise ValueError('Do not end the note name with .gpg.')
-    if '.gpg' in file_path:
-        # Currently it is redundant to verify .gpg if it verifies for encrypted file,
-        # but not doing so would mean that this function would depend on the extension,
-        # which is something that may be replaced in the future because there are
-        # better ways to verify if file is encrypted.
-        system(f'mv {}')
-    else:
-        ...
+    if '.gpg' in file_basename and '.gpg' not in new_name:
+        # Currently verifying for .gpg is redundant if it verifies for encrypted
+        # file, but this may change in the future when the extension .gpg is no
+        # longer used.
+        new_name += '.gpg'
+
+    system(f'mv {file_path} {dirname(file_path) + "/" + new_name}')
+    return new_name
 
 
 def get_saved_notes_filenames() -> List[str]:
@@ -136,15 +132,9 @@ def get_saved_notes_filenames() -> List[str]:
     return filenames
 
 
-def get_filename_from_full_path(file_path: str) -> str:
-    """ Given a full path to a file, return only the file """
-    if file_path.endswith('/'):
-        raise ValueError('Path ends with /. Make sure you have a path to a file.')
-
-    return basename(file_path)
-
-
 def note_full_path(note_name: str) -> str:
     """ Given a note name, returns its full path (i.e. /home/user/.config/.../note) """
+    # Operations regarding files do not use built-in Python functions, so spaces
+    # must be skipped
     note_name = note_name.replace(' ', '\\ ')
     return str(SAFENOTES_DIR_PATH / note_name)
