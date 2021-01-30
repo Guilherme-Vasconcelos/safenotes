@@ -60,9 +60,7 @@ a specific note. By doing so you will be sent to another menu, in which you can:
 
 - Read/Edit: by selecting this option the file will be unencrypted and you will
 be sent to your text editor to be able to read or edit the note.
-- Delete: by selecting this option the file will be deleted. You should be aware
-that you can only delete files that are currently encrypted. If your note is not
-encrypted, you can encrypt it by going back to the initial menu and picking the
-`Refresh encryptions` option.
+- Delete: by selecting this option the file will be deleted. Be careful as there
+is currently no confirmation.
 
 [<- Go back to docs root](README.md)

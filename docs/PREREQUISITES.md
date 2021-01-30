@@ -10,8 +10,8 @@ operating system.
 and decrypting the files. If you are using a GNU/Linux distribution, you probably
 already have it installed, but you can make sure with the command: `gpg --version`.
 
-3. You need GNU coreutils (particularly for the commands `rm` and `shred`). It
-should be installed by default in most GNU/Linux distributions. If not, please consult
+3. You need GNU coreutils for commands such as `rm`, `shred` and `mv`. It should
+be installed by default in most GNU/Linux distributions. If not, please consult
 your distribution manual to see installation instructions.
 
 4. You need a compatible version of Python. It is guaranteed to work on version 3.8

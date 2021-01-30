@@ -72,7 +72,7 @@ def load_user_password() -> str:
     """ Prompts for password until user gets it right (i.e. hashes match) """
     hashed_passwd = open(str(PASSWORD_FILE_PATH), 'r').read()
     display_colored_text('Please, type in your password to have access to your notes.\n', blue)
-    display_colored_text('This will not display any data.\n', blue)
+    display_colored_text('This will not echo.\n', blue)
     display_colored_text('Password: ', yellow)
     password_typed = getpass('')
     while not compare_hash(hashed_passwd, crypt(password_typed, hashed_passwd)):
@@ -94,16 +94,15 @@ def edit_file_and_encrypt(file_path: str, password: str) -> None:
     encrypt_file(file_path, password)
 
 
-def delete_encrypted_file(file_path: str) -> None:
-    """ Deletes an encrypted file, or raises error if file is not encrypted. """
-    if not is_file_encrypted(file_path):
-        raise ValueError('It seems the file is not encrypted.')
+def delete_file(file_path: str) -> None:
+    """ Deletes a file which different operations based on whether it is encrypted or not """
 
-    # Removing files using Python requires spaces not to be escaped, which is
-    # not what being done at the moment (because other shell operations do
-    # need the spaces to be escaped). Because of that rm is used instead
-    # of Python's os.remove.
-    system(f'rm {file_path}')
+    # If file is not encrypted, it must be removed with shred (otherwise its
+    # data will remain on disk)
+    if is_file_encrypted(file_path):
+        system(f'rm {file_path}')
+    else:
+        system(f'shred -u {file_path}')
 
 
 def get_saved_notes_filenames() -> List[str]:

@@ -60,7 +60,7 @@ class Displayer:
 
     def delete_note(self, note_path: str) -> None:
         """ Deletes an encrypted note. If note is not encrypted raises error. """
-        files_accessor.delete_encrypted_file(note_path)
+        files_accessor.delete_file(note_path)
         self.display_initial_menu()
 
     def refresh_encryptions(self) -> None:
